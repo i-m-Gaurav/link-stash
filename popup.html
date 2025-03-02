@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Website Saver</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="popup.css">
+</head>
+<body>
+  <div class="container">
+    <h1>Saved Websites</h1>
+    
+    <div class="search-container">
+      <input type="text" id="search-input" placeholder="Search saved websites...">
+      <button id="clear-search">✕</button>
+    </div>
+    
+    <div class="list-controls">
+      <select id="sort-select">
+        <option value="date-desc">Newest First</option>
+        <option value="date-asc">Oldest First</option>
+        <option value="title-asc">Title (A-Z)</option>
+        <option value="title-desc">Title (Z-A)</option>
+      </select>
+      <button id="clear-all">Clear All</button>
+    </div>
+    
+    <div id="websites-list" class="websites-list">
+      <!-- Websites will be populated here by JavaScript -->
+      <div class="empty-state">No websites saved yet</div>
+    </div>
+  </div>
+  
+  <script src="popup.js"></script>
+</body>
+</html> 
