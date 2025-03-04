@@ -74,7 +74,7 @@ document.addEventListener('DOMContentLoaded', () => {
         <div class="website-title">${site.title || 'Untitled'}</div>
         <div class="website-url">${site.url}</div>
         <div class="website-date">Saved on ${formattedDate}</div>
-        <button class="delete-button" data-index="${index}">✕</button>
+        <button class="delete-button" data-url="${site.url}">✕</button>
       `;
       
       // Add click event to open the website
@@ -92,8 +92,8 @@ document.addEventListener('DOMContentLoaded', () => {
     document.querySelectorAll('.delete-button').forEach(button => {
       button.addEventListener('click', (e) => {
         e.stopPropagation();
-        const index = parseInt(e.target.dataset.index);
-        deleteWebsite(index);
+        const url = e.target.dataset.url;
+        deleteWebsite(url);
       });
     });
   }
@@ -141,15 +141,15 @@ document.addEventListener('DOMContentLoaded', () => {
   }
   
   // Function to delete a website
-  function deleteWebsite(index) {
+  function deleteWebsite(url) {
     chrome.storage.sync.get('savedWebsites', (data) => {
       const savedWebsites = data.savedWebsites || [];
       
-      // Remove the website at the specified index
-      savedWebsites.splice(index, 1);
+      // Remove the website with the matching URL
+      const updatedWebsites = savedWebsites.filter(site => site.url !== url);
       
       // Save the updated list
-      chrome.storage.sync.set({ savedWebsites: savedWebsites }, () => {
+      chrome.storage.sync.set({ savedWebsites: updatedWebsites }, () => {
         loadWebsites();
       });
     });
@@ -168,4 +168,4 @@ document.addEventListener('DOMContentLoaded', () => {
   function showEmptyState() {
     websitesList.innerHTML = '<div class="empty-state">No websites saved yet</div>';
   }
-}); 
+});
